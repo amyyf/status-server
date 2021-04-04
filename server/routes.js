@@ -21,7 +21,6 @@ const createVendorUrls = (endpoint) => {
     case 'google':
       urls.push('https://www.google.com');
       break;
-    // TODO: this isn't currently working.
     case 'all':
       urls.push('https://www.amazon.com');
       urls.push('https://www.google.com');
@@ -33,26 +32,26 @@ const createVendorUrls = (endpoint) => {
   return urls;
 };
 
-const getStatus = (req, res, next) => {
-  const vendorUrls = createVendorUrls(req.params.site);
+const makeRequest = async (url) => {
+  const startTime = Date.now();
+  const response = await fetch(url);
+  const responseTime = Date.now();
+  return {
+    url: url,
+    statusCode: response.status,
+    duration: responseTime - startTime,
+    date: responseTime
+  };
+}
 
-  vendorUrls.forEach(url => {
-    const startTime = Date.now();
-    fetch(url)
-      .then(response => {
-        const responseTime = Date.now();
-        res.json({
-          url: url,
-          statusCode: response.status,
-          duration: responseTime - startTime,
-          date: responseTime
-        });
-      })
-      .catch(err => {
-        console.log(err);
-        res.sendStatus(500);
-      });
-  })
+const getStatus = async (req, res, next) => {
+  const vendorUrls = createVendorUrls(req.params.site);
+  const data = [];
+
+  (await Promise.all(vendorUrls.map(url => makeRequest(url))))
+    .forEach(values => data.push(values));
+  
+  res.json(data);
 }
 
 router.use('/:site', getStatus);

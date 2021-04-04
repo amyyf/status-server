@@ -11,6 +11,8 @@ export default class VendorStatus extends React.Component {
 
   componentDidMount() {
     this.getStatus('v1/amazon-status');
+    this.getStatus('v1/google-status');
+    this.getStatus('v1/all-status');
     // this.statusId = setInterval(
     //   () => fetch('v1/amazon-status').then(response => console.log(response)),
     //   1000
@@ -22,9 +24,11 @@ export default class VendorStatus extends React.Component {
   }
 
   getStatus(url) {
+    console.log(`getting status for ${url}`);
     fetch(url)
       .then(response => response.json())
       .then(data => {
+        console.log(data);
         this.setState({
           amazon: data
         })
