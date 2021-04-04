@@ -41,12 +41,16 @@ const getStatus = (req, res, next) => {
     fetch(url)
       .then(response => {
         const responseTime = Date.now();
-        console.log(res.json({
+        res.json({
           url: url,
           statusCode: response.status,
           duration: responseTime - startTime,
           date: responseTime
-        }))
+        });
+      })
+      .catch(err => {
+        console.log(err);
+        res.sendStatus(500);
       });
   })
 }
