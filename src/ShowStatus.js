@@ -15,7 +15,7 @@ function ShowStatus(props) {
   // Readable date format.
   const dateString = new Date(date).toLocaleString();
   
-  // Class to style OK versus error responses.
+  // Class to style OK versus error status codes.
   const statusClass = statusCode === 200 ? 'status status--ok' : 'status status--error';
 
   return (

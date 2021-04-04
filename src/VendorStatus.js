@@ -5,7 +5,7 @@ export default class VendorStatus extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      endpoint: 'v1/all-status',
+      endpoint: 'v1/all-status', // Calls only one endpoint to not duplicate front-end data
       vendors: []
     }
   }
