@@ -1,36 +1,36 @@
 import React from 'react';
+import ShowStatus from './ShowStatus.js';
 
 export default class VendorStatus extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      amazon: {},
-      google: {}
+      endpoint: 'v1/all-status',
+      vendors: []
     }
   }
 
   componentDidMount() {
-    this.getStatus('v1/amazon-status');
-    this.getStatus('v1/google-status');
-    this.getStatus('v1/all-status');
-    // this.statusId = setInterval(
-    //   () => fetch('v1/amazon-status').then(response => console.log(response)),
-    //   1000
-    // );
+    // Get data when component mounts to populate components.
+    this.getStatus(this.state.endpoint);
+    // Set interval to fetch data once a minute.
+    this.statusId = setInterval(
+      () => this.getStatus(this.state.endpoint),
+      60000
+    );
   }
 
   componentWillUnmount() {
     clearInterval(this.statusId);
   }
 
+  // Fetch endpoint status from API and set state.
   getStatus(url) {
-    console.log(`getting status for ${url}`);
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({
-          amazon: data
+          vendors: data
         })
       });
   }
@@ -38,10 +38,24 @@ export default class VendorStatus extends React.Component {
   render() {
     return (
       <>
-        <p>URL: {this.state.amazon.url}</p>
-        <p>Status code: {this.state.amazon.statusCode}</p>
-        <p>Request duration: {this.state.amazon.duration} ms</p>
-        <p>Date: {this.state.amazon.date}</p>
+        {
+          // Loading state.
+          !this.state.vendors.length
+          && <p>Fetching data...</p>
+        }
+        {
+          // Show status when we have data.
+          this.state.vendors.length
+          && this.state.vendors.map((vendor, index) => (
+            <ShowStatus
+              date={vendor.date}
+              duration={vendor.duration}
+              key={index}
+              statusCode={vendor.statusCode}
+              url={vendor.url}
+            />
+          ))
+        }
       </>
     );
   }
