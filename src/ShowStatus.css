@@ -1,0 +1,17 @@
+.vendor-status {
+  padding-bottom: 24px;
+}
+
+.status {
+  background-color: #fff;
+  font-weight: bold;
+  padding: 2px;
+}
+
+.status--ok {
+  color: green;
+}
+
+.status--error {
+  color: red;
+}

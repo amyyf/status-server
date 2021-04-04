@@ -1,4 +1,5 @@
 import React from 'react';
+import './ShowStatus.css';
 
 function ShowStatus(props) {
   const {
@@ -8,16 +9,19 @@ function ShowStatus(props) {
     url
   } = props;
 
+  // Remove protocol and www from URL to output a more readable vendor name.
+  const vendor = url.split('https://www.')[1];
+
   // Readable date format.
   const dateString = new Date(date).toLocaleString();
   
   // Class to style OK versus error responses.
-  const statusClass = statusCode === 200 ? 'status--ok' : 'status--error';
+  const statusClass = statusCode === 200 ? 'status status--ok' : 'status status--error';
 
   return (
-    <div>
-      <h2>{url}</h2>
-      <p>Status: <span class={statusClass}>{statusCode}</span></p>
+    <div className="vendor-status">
+      <h2>{vendor}</h2>
+      <p>Status: <span className={statusClass}>{statusCode}</span></p>
       <p>Request duration: {duration} ms</p>
       <p>Accessed at: {dateString}</p>
     </div>

@@ -3,14 +3,12 @@ import './App.css';
 
 function App() {
   return (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <h1>Vendor Status Page</h1>
-        </header>
-      </div>
+    <div className="app">
+      <header className="app__header">
+        <h1>Vendor Status Page</h1>
+      </header>
       <VendorStatus />
-    </>
+    </div>
   );
 }
 
