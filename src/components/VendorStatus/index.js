@@ -1,5 +1,5 @@
 import React from 'react';
-import ShowStatus from './ShowStatus.js';
+import ShowStatus from '../ShowStatus';
 
 export default class VendorStatus extends React.Component {
   constructor(props) {

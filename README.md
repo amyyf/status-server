@@ -8,7 +8,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 `src` contains client files for the front-end. `server` contains the Express application for routing and serving.
 ## Running Locally
 
-In the project directory, run:
+Clone the repo or download the zip files and run `npm install` in the project directory. Then run:
 
 ### `npm run deploy-local`
 
@@ -41,4 +41,4 @@ The build is minified and the filenames include the hashes.\
 - If additional vendors need to be added, consider using a config file to store their names/URLs
 - Ability to filter vendors on the front end
 - If vendor status code is not 200, display the last timestamp when a 200 response was received
-- Remove/update unnecessary Create React App boilerplate
+- Set up a quicker local dev process

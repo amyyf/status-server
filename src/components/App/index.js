@@ -1,5 +1,5 @@
-import VendorStatus from './VendorStatus.js';
-import './App.css';
+import VendorStatus from '../VendorStatus';
+import './index.css';
 
 function App() {
   return (

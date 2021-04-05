@@ -1,5 +1,5 @@
 import React from 'react';
-import './ShowStatus.css';
+import './index.css';
 
 function ShowStatus(props) {
   const {
